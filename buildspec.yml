@@ -4,13 +4,15 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+
   build:
     commands:
       - echo Build started on `date`
-        - sbt assembly # generate build
+      - sbt run # generate build
   post_build:
     commands:
       - echo Build completed on `date`
+      -  sbt package
 artifacts:
   files:
     - target/*
