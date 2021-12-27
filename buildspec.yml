@@ -4,14 +4,19 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+        #install sbt
+        - echo "deb https://dl.bintray.com/sbt/debian /" | tee -a  /etc/apt/sources.list.d/sbt.list
+        - apt-get update
+        - apt-get install sbt
+        - apt-get install unzip
   build:
     commands:
       - echo Build started on `date`
-      - sbt test
+        - sbt compile # generate build
+        - sbt package
   post_build:
     commands:
       - echo Build completed on `date`
-      - sbt package
 artifacts:
   files:
     - target/*
