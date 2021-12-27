@@ -4,7 +4,9 @@ phases:
   install:
     runtime-versions:
       java: corretto8
-
+      - curl -LO https://github.com/sbt/sbt/releases/download/v1.1.6/sbt-1.1.6.tgz
+      - tar -xf sbt-*.tgz
+      - export PATH=$CODEBUILD_SRC_DIR/sbt/bin/:$PATH
   build:
     commands:
       - echo Build started on `date`
@@ -13,6 +15,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      -  sbt package
 artifacts:
   files:
     - target/*
