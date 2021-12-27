@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto8
+      java: corrett11
       - curl -LO https://github.com/sbt/sbt/releases/download/v1.1.6/sbt-1.1.6.tgz
       - tar -xf sbt-*.tgz
       - export PATH=$CODEBUILD_SRC_DIR/sbt/bin/:$PATH
