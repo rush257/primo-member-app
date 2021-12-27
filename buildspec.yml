@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  build:
+    commands:
+      - echo Build started on `date`
+      - sbt test
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - sbt package
+artifacts:
+  files:
+    - target/*
+    - scripts/*
+    - appspec.yml
+  discard-paths: yes
