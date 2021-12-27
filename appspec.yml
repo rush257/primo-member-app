@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: ./primo-member-app_2.13-0.1.jar
-    destination: /
+    destination: /home/ec2-user
 
 hooks:
   ApplicationStop:
