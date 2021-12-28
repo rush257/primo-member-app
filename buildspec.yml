@@ -4,9 +4,11 @@ phases:
   install:
     runtime-versions:
       java: corrett11
+    commands:
       - curl -LO https://github.com/sbt/sbt/releases/download/v1.1.6/sbt-1.1.6.tgz
       - tar -xf sbt-*.tgz
       - export PATH=$CODEBUILD_SRC_DIR/sbt/bin/:$PATH
+      - sbt -Dsbt.log.noformat=true sbtVersion scalaVersion
   build:
     commands:
       - echo Build started on `date`
