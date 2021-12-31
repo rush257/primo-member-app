@@ -1,0 +1,33 @@
+
+image: bitbucketpipelines/scala-sbt:scala-2.12
+pipelines:
+  default:
+    - step:
+        script: # Modify the commands below to build your repository.
+          - sbt assembly
+          - mv $(pwd)/target/scala-2.13/primo-member-app-1.0.jar primo-member-app_2.13-0.1.jar
+          - apt install -y zip
+          - zip module -@ < upload.txt
+          - pipe: atlassian/aws-code-deploy:0.2.5
+            variables:
+               AWS_DEFAULT_REGION: 'eu-central-1'
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               S3_BUCKET: 'primo-app-bucket'
+               APPLICATION_NAME: 'primo-app'
+               COMMAND: 'upload'
+               ZIP_FILE: 'module.zip'
+               VERSION_LABEL: 'module-$BITBUCKET_BUILD_NUMBER.zip'
+          - pipe: atlassian/aws-code-deploy:0.2.5
+            variables:
+               AWS_DEFAULT_REGION: 'eu-central-1'
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               DEPLOYMENT_GROUP: 'primo-app-deployment-config'
+               S3_BUCKET: 'primo-app-bucket'
+               APPLICATION_NAME: 'primo-app'
+               COMMAND: 'deploy'
+               WAIT: 'false'
+               VERSION_LABEL: 'module-$BITBUCKET_BUILD_NUMBER.zip'
+               IGNORE_APPLICATION_STOP_FAILURES: 'true'
+               FILE_EXISTS_BEHAVIOR: 'OVERWRITE'

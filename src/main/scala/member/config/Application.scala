@@ -15,5 +15,9 @@ object Application {
   val neo4jUsername = config.getString("neo4j.username")
   var neo4jPassword = config.getString("neo4j.password")
 
+  val senderHostname = config.getString("email.hostName")
+  val senderEmail = config.getString("email.sender.email")
+  val senderpassword = config.getString("email.sender.password")
+  val emailSubject = config.getString("email.subject")
 
 }

@@ -1,0 +1,5 @@
+primo-member-app_2.13-0.1.jar
+appspec.yml
+scripts/start.sh
+scripts/stop.sh
+scripts/validate.sh

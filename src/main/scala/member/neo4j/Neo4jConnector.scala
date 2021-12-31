@@ -25,4 +25,8 @@ object Neo4jConnector {
     driver.session().run(script).consume().counters().propertiesSet()
   }
 
+  def updateRelation(script: String): Int = {
+    driver.session().run(script).consume().counters().relationshipsCreated()
+  }
+
 }
